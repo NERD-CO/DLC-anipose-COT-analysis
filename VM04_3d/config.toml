@@ -1,0 +1,72 @@
+# Project name
+project = "dbspose"
+
+
+# Change this to match deeplabcut folder (one with trained network)
+model_folder = 'C:/Users/madComp/Desktop/MultiPtDBSDLC/VM04/COTask-Maddie-2022-07-05'
+
+video_extension = "mp4"
+
+# How many folders are nested in structure?
+nesting = 1
+
+[pipeline]
+videos_raw = "videos-raw" # change this if you'd like to change name of "videos-raw" folder
+
+
+
+# labeling scheme...specify lines that you want to draw for visualizing labels in videos
+[labeling]
+scheme = [
+  ["fingerTip2", "MCP2"],
+  ["MCP2", "wristCenter"],
+  ["MCP5", "wristCenter"],
+]
+
+
+
+# Settings for a threshold filter
+# Removes data outside threshold (probably errors in tracking), and interpolates
+[filter]
+enabled = true
+medfilt = 13 # length of median filter
+offset_threshold = 25 # offset from median filter to count as jump
+score_threshold = 0.8 # score below which to count as bad
+spline = true # interpolate using cubic spline instead of linear
+
+
+
+[triangulation]
+cam_regex = '(left|right|top)Cam'
+
+
+
+[calibration]
+# checkerboard / charuco / aruco
+board_type = "checkerboard"
+
+# width and height of grid
+board_size = [9, 6]
+
+# number of bits in the markers, if aruco/charuco
+#board_marker_bits = 4
+
+# number of markers in dictionary, if aruco/charuco
+#board_marker_dict_number = 50
+
+# length of marker side
+#board_marker_length = 3 # mm
+
+# If aruco, length of marker separation
+# board_marker_separation_length = 1 # mm
+
+# If charuco or checkerboard, square side length
+board_square_side_length = 25.4 # mm
+
+
+
+[manual_verification]
+# true / false
+manually_verify = false
+
+
